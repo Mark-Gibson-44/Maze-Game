@@ -1,0 +1,8 @@
+﻿  Functions.cpp
+  Maze.cpp
+C:\Users\Mark\Desktop\MazeGameProject\MazeGameProject\Maze.cpp(1,10): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+  Source.cpp
+C:\Users\Mark\Desktop\MazeGameProject\MazeGameProject\Maze.cpp(22,14): warning C4101:  'Maze_Selection': unreferenced local variable
+  Generating Code...
+C:\Users\Mark\Desktop\MazeGameProject\MazeGameProject\Source.cpp(44,15): warning C4101:  'options': unreferenced local variable
+  MazeGameProject.vcxproj -> C:\Users\Mark\Desktop\MazeGameProject\x64\Debug\MazeGameProject.exe
