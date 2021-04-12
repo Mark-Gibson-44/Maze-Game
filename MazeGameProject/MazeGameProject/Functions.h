@@ -4,7 +4,7 @@
 #include <iostream>//for any input and output
 #include <string>//for the maze stuctures
 
-using namespace std;
+
 
 
 void Rules();//displays the rules of the game.

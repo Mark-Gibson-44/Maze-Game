@@ -3,6 +3,19 @@
 #include <conio.h>//used to read in key movements obtained from https://www.youtube.com/watch?v=v3MiuCVTMvE  using the _getch() function
 #include "Functions.h"//all functions used in the program
 #include "Maze.h"
+#include "Game.h"
+
+#ifdef __unix__         
+
+#define clear "clear"
+
+#elif defined(_WIN32) || defined(WIN32) 
+
+#define clear "cls"
+
+#endif
+
+
 //any use of system functions was done from seeing various instances of people using it
 using namespace std;
 
@@ -21,7 +34,7 @@ int main() {
 				Games_Played++;
 				Points = Points + 100;//increases the numbers of games played
 				Maze stage;//constructor for the maze asking user for maze choice
-				stage.Play();//playing the maze
+				//stage.Play();//playing the maze
 
 
 			}
@@ -34,7 +47,7 @@ int main() {
 				system("pause");
 			}
 			if (options == '3') {
-				system("cls");
+				system(clear);
 				Rules();//outputs the rules from the function
 			}
 			if (options == '4') {
@@ -42,11 +55,11 @@ int main() {
 			}
 		}
 		catch (char options) {//catching the exception from menu options
-			system("cls");
+			system(clear);
 			cout << "Invalid input: Select an option from the available" << endl;//tells the users they must input a valid optoin
 			system("pause");
 		}
-		system("cls");//clears the screen so that it does not output the menu again below the earlier output
+		system(clear);//clears the screen so that it does not output the menu again below the earlier output
 	}
 	system("pause");//keeps the debugger open
 

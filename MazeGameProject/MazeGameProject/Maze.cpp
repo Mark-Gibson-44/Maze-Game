@@ -1,5 +1,12 @@
 #include "Maze.h";
 
+
+
+bool Maze::inBounds(const coord& c)
+{
+	return (c.x < width && c.x > -1) && (c.y < height && c.y > -1);
+}
+
 Maze::Maze() {
 	char Maze_Selection;
 
@@ -116,94 +123,9 @@ Maze::Maze() {
 
 }
 
-void Maze::Move_Up() {//all movement functoins were created from scratch
-	if (Stage[Player_position - width] == 'X') {//makes sure that the player cannnot move through a wall
-		cout << "invalid Move" << endl;
-		system("pause");
-	}
-	else {
-		swap(Stage[Player_position], Stage[Player_position - width]);//due to Stages being in a string it swaps the characters in the string making it seem like it has moved
-		Player_position = Player_position - width;//changing the value for where the player position is
-	}
-}
-void Maze::Move_Down() {//moving down
-	if (Stage[Player_position + width] == 'X') {
-		cout << "invalid Move" << endl;
-		system("pause");
-	}
-	else {
-		swap(Stage[Player_position], Stage[Player_position + width]);//due to Stages being in a string it swaps the characters in the string making it seem like it has moved
-		Player_position = Player_position + width;//changing position of player
-	}
-}
-void Maze::Move_Left() {
-	if (Stage[Player_position - 1] == 'X') {
-		cout << "invalid Move" << endl;
-		system("pause");
-	}
-	else {
-		swap(Stage[Player_position], Stage[Player_position - 1]);
-		Player_position = Player_position - 1;
-	}
-}
-void Maze::Move_Right() {
-	if (Stage[Player_position + 1] == 'X') {//prevents players moving through what is meant to be the walls of the map
-		cout << "invalid Move" << endl;
-		system("pause");
-	}
-	else {
-		swap(Stage[Player_position], Stage[Player_position + 1]);// if it is a valid move swap position in the string to show the player character moving
-		Player_position = Player_position + 1;//edit the player position so that they are not only allowed to move once in the game
-	}
-}
-bool Maze::Win_Stage() {//boolean function to determine whether the game has been completed
-	if (Stage[Player_position] == Stage[Win_Position]) {//sets to true if the position of the player is the end point
-		return true;
-	}
-	else {
-		return false;//if they didnt get onto the winning spot they havent won
-	}
-}
-
-void Maze::Play() {//constructor that creates the Maze
-	system("cls");
-	cout << Stage << endl;
-	while (1) {
-
-		int i = 1;
-
-		char key = _getch();
-
-		int Key_Value = key;
 
 
-		if (Key_Value == 's' || Key_Value == 'S') {//determines direction of movement
-			Move_Down();
-		}
-
-		if (Key_Value == 'w' || Key_Value == 'W') {//determines direction of movement
-			Move_Up();
-		}
-		if (Key_Value == 'd' || Key_Value == 'D') {//determines direction of movement
-			Move_Right();
-		}
-		if (Key_Value == 'a' || Key_Value == 'A') {//determines direction of movement
-			Move_Left();
-		}
-
-		if (Win_Stage() == true)//identifies if the player has one
-		{
-			system("CLS");
-			cout << "Well done, You win" << endl;//congratulates them
-
-			_getch();
-
-			// adds 100 Points once the game has been completed
-			break;
-		}
-
-		system("CLS");//clears the screen then outputs the new maze that should have changed due to some elements swapping from player movement
-		cout << Stage << endl;
-
-	}
+bool Maze::complete(const coord& player)
+{
+	return player.x == this->Exit.x && player.y == this->Exit.y;
 }

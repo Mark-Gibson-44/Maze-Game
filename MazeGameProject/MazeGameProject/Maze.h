@@ -12,23 +12,28 @@
 
 using namespace std;
 
+struct coord {
+	int x;
+	int y;
+};
+
 class Maze {
+
+	int height;
+	int width;
+	coord Exit;
+	bool inBounds(const coord& c);
 public:
-
-
 	Maze();
 
-	void Play();//plays the game where the user navigates the stage
-	bool Win_Stage();//if true player wins the game
-	void Move_Up();//moving upwards
-	void Move_Down();//moving downwards
-	void Move_Left();//moving left
-	void Move_Right();//moving right
+	//void Play();//plays the game where the user navigates the stage
+	bool complete(const coord& player);//if true player wins the game
+	Maze GenRandom();
 protected:
 	std::string Stage;//maze the user navigates
 	int Player_position;//where the player starts on the maze, it will change after each movement
 	int Win_Position;//position that is where the user must reach to win the game
-	int width;// how wide the stage is, this is used to determine what positions must be swapped for moving up or down.
+	
 };
 #endif
 
