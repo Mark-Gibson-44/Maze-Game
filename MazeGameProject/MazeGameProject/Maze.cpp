@@ -68,7 +68,9 @@ Maze::Maze(int h, int w)
 		this->GenRandom(h, w);
 	}*/
 	board[test.x][test.y] = '0';
+	model_board[test.x][test.y] = entity::player;
 	board[Exit.x][Exit.y] = '+';
+	model_board[Exit.x][Exit.y] = entity::exit;
 	std::string res = (this->valid_maze(test)) ? "Valid" : "invalid";
 	std::cout << res << std::endl;
 	this->begin = test;
@@ -191,7 +193,10 @@ Maze::Maze() {
 
 }
 */
-
+coord Maze::getStart() noexcept
+{
+	return this->begin;
+}
 
 bool Maze::complete(const coord& player)
 {
@@ -203,23 +208,28 @@ void Maze::GenRandom(int h, int w)
 	for (int i = 0; i < h; i++)
 	{
 		std::vector<char> line;
+		std::vector<entity> temp;
 		for (int j = 0; j < w; j++)
 		{
 			if (i == 0 || i == h - 1)
 			{
 				line.emplace_back('X');
+				temp.emplace_back(entity::wall);
 			}
 			else if (j == 0 || j == w - 1)
 			{
 				line.emplace_back('X');
+				temp.emplace_back(entity::wall);
 			}
 			else {
 				line.emplace_back((rand() % 3) ? ' ' : 'X');
+				temp.emplace_back((rand() % 3) ? entity::empty : entity::wall);
 			}
 			
 		}
 		
 		this->board.push_back(line);
+		this->model_board.push_back(temp);
 		
 	}
 	
@@ -239,3 +249,20 @@ char Maze::at(int x, int y)
 {
 	return board[x][y];
 }
+
+entity& Maze::operator[](coord c)
+{
+	return this->model_board[c.x][c.y];
+}
+
+void Maze::setStart(coord c)
+{
+	this->model_board[begin.x][begin.y] = entity::empty;
+	begin = c;
+	this->model_board[begin.x][begin.y] = entity::player;
+}
+
+
+
+
+

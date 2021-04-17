@@ -20,6 +20,13 @@ enum class movement {
 	right = 3
 };
 
+enum class entity {
+	empty = 0,
+	wall = 1,
+	exit = 2,
+	player = 3
+};
+
 struct coord {
 	int x;
 	int y;
@@ -29,7 +36,12 @@ struct coord {
 	}
 };
 
-
+static std::map<entity, char> pieces = {
+	{ entity::empty, ' '},
+	{ entity::wall, 'X'},
+	{ entity::exit, '+'},
+	{ entity::player, '0'},
+};
 
 static std::map<movement, coord> moves = {
 	{ movement::up,		{ 0, 1 } },
@@ -47,9 +59,11 @@ class Maze {
 	coord Exit;
 	bool inBounds(const coord& c);
 	std::vector<std::vector<char>> board;
+	
 	bool valid_maze(coord start);
 	coord RandCoord();
 public:
+	coord getStart() noexcept;
 	Maze(const char* file);
 	Maze(int h, int w);
 	//void Play();//plays the game where the user navigates the stage
@@ -58,8 +72,9 @@ public:
 	int getWidth();
 	int getHeight();
 	char at(int x, int y);
-
-
+	std::vector<std::vector<entity>> model_board;
+	entity& operator [](coord c);
+	void setStart(coord c);
 protected:
 	std::string Stage;//maze the user navigates
 	int Player_position;//where the player starts on the maze, it will change after each movement
