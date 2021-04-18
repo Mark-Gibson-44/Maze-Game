@@ -2,7 +2,7 @@
 
 Game::Game(Maze m) : board(m)
 {
-	
+	start = board.getStart();
 	games_played = 0;
 	Points = 0;
 	/*std::cout << "Select a Maze to navigate\n";
@@ -42,7 +42,8 @@ Game::Game(Maze m) : board(m)
 
 bool Game::validMove(coord m)
 {
-	return this->board[(start + m)] != entity::wall;//start + moves[m];
+	
+	return this->board[(m)] != entity::wall;//start + moves[m];
 }
 
 void Game::play()
@@ -52,8 +53,8 @@ void Game::play()
 		print_board();
 		int selected_move;
 		selected_move = cin.get();
-		auto move = moves[movement(selected_move)];
-		if (validMove(move))
+		auto move = moves[movement(selected_move - 48)];
+		if (validMove(start + move))
 			start = start + move;
 		
 		board.setStart(start);
